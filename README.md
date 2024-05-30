@@ -1,4 +1,5 @@
-#  ✨ ARAT AI-GPT ✨
+#  [✨ ARAT AI-GPT ✨](https://arat-ai-gpt.streamlit.app/)
+ 
 
 ✨ Welcome to ARAT AI-GPT ✨, a Streamlit-based application that provides various AI functionalities such as YouTube video summarization, image-based Q&A, and text-to-image generation.
 
