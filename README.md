@@ -1,4 +1,4 @@
-#  [✨ ARAT AI-GPT ✨](https://arat-ai-gpt.streamlit.app/)
+![Screenshot (159)](https://github.com/KesavaAI/ARAT-AI-GPT/assets/144814421/0038c1ef-7699-4c6c-8428-a17484187c40)#  [✨ ARAT AI-GPT ✨](https://arat-ai-gpt.streamlit.app/)
  
 
 ✨ Welcome to ARAT AI-GPT ✨, a Streamlit-based application that provides various AI functionalities such as YouTube video summarization, image-based Q&A, and text-to-image generation.
@@ -16,6 +16,13 @@
 - **YouTube Video Summarization:** Summarize key points from a YouTube video.
 - **Upload an Image and Ask About It:** Upload an image and get responses based on the image content.
 - **Image Generation:** Generate images from text prompts.
+- ![Screenshot (157)](https://github.com/KesavaAI/ARAT-AI-GPT/assets/144814421/bb18584a-a6bd-4038-8404-801c496ee5e2)
+- ![Screenshot (158)](https://github.com/KesavaAI/ARAT-AI-GPT/assets/144814421/5b530584-79bf-4522-bdc4-69cd9e74c1be)
+- ![Screenshot (159)](https://github.com/KesavaAI/ARAT-AI-GPT/assets/144814421/37b28e9e-f837-47e7-a093-c1370c228a92)
+- ![Screenshot (160)](https://github.com/KesavaAI/ARAT-AI-GPT/assets/144814421/e5a01fec-2a10-4f69-86b4-70ffed453603)
+- ![Screenshot (161)](https://github.com/KesavaAI/ARAT-AI-GPT/assets/144814421/4a0a75f4-6294-436f-aa87-3ce46111d847)
+- ![Screenshot (162)](https://github.com/KesavaAI/ARAT-AI-GPT/assets/144814421/0dbb8ec9-aa5e-4062-96bb-8109350dcf71)
+- ![Screenshot (163)](https://github.com/KesavaAI/ARAT-AI-GPT/assets/144814421/f2a456ba-d7c1-40b2-a818-b3116e2913fb)
 
 ## Installation
 
