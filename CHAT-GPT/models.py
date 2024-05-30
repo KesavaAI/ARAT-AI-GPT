@@ -5,7 +5,7 @@ import time
 import requests
 
 # Configure Google Generative AI
-genai.configure(api_key="api key")
+genai.configure(api_key="AIzaSyCywxL3BTdCMWt22qmZIxpOJVECFNbr02s")
 model = genai.GenerativeModel('gemini-1.5-pro-latest')
 model_video = genai.GenerativeModel(model_name="models/gemini-1.5-flash-latest")
 
