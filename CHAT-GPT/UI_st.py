@@ -2,19 +2,24 @@ import streamlit as st
 from models import get_gemini_response, get_gemini_response_image, yt_summarize, imagegen
 from PIL import Image
 import io
+import warnings
+
+# Suppress DecompressionBombWarning
+warnings.simplefilter('ignore', Image.DecompressionBombWarning)
+Image.MAX_IMAGE_PIXELS = None
 
 # Set page configuration
 st.set_page_config(page_title="ARAT GPT", page_icon="✨", layout="wide")
 
-# Custom CSS for enhanced styling with Hugging Face colors
+# Custom CSS for enhanced styling with colors
 st.markdown("""
     <style>
     body {
-        background-color: #f5f6f8; /* Hugging Face background color */
+        background-color: #f5f6f8; /* background color */
     }
     .stApp {
         color: #31394d; /* Hugging Face text color */
-        background-color: #f5f6f8; /* Hugging Face background color */
+        background-color: #f5f6f8; /* background color */
     }
     .stTitle {
         color: #BB377D; /* Neon green color for the title */
@@ -23,7 +28,7 @@ st.markdown("""
         font-size: 36px;
     }
     .stAttribution {
-        color: #858999; /* Hugging Face attribution color */
+        color: #858999; /* attribution color */
         text-align: center;
         margin-bottom: 20px;
         font-size: 14px;
@@ -62,7 +67,7 @@ st.markdown("""
         transition: transform 0.2s ease-in-out;
     }
     .stFileUploader > div > button:hover {
-        background-color: #00777f; /* Hugging Face upload button hover background color */
+        background-color: #00777f; /* upload button hover background color */
     }
     .stImage {
         border-radius: 10px; /* Image border radius */
@@ -100,8 +105,12 @@ input_prompt = st.text_area("Input Prompt:", key="input")
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file:
-    image = Image.open(uploaded_file)
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+    try:
+        image = Image.open(uploaded_file)
+        st.image(image, caption="Uploaded Image", use_column_width=True)
+    except Exception as e:
+        st.error(f"Error opening the image: {e}")
+        image = None
 else:
     image = None
 
@@ -121,29 +130,41 @@ if submit:
         with st.container():
             for i in range(4):  # Generate 4 different types of images
                 modified_prompt = f"{input_prompt} {variations[i]}"
-                response = imagegen(modified_prompt)
-                image = Image.open(io.BytesIO(response))
-                image = image.resize((15360 , 8640))  # Resize image quality
-                columns[i].image(image, caption=f"Generated Image {i+1}", use_column_width=True)
+                try:
+                    response = imagegen(modified_prompt)
+                    image = Image.open(io.BytesIO(response))
+                    image = image.resize((15360, 8640))  # 12k Resize image quality
+                    columns[i].image(image, caption=f"Generated Image {i+1}", use_column_width=True)
+                except Exception as e:
+                    st.error(f"Error generating image {i+1}: {e}")
         st.write("Generating articles on the images...")
         # Generate articles based on the generated images
         for i in range(4):
             modified_prompt = f"Write an article about the generated image {i+1}: {input_prompt}"
-            article_response = get_gemini_response(modified_prompt)
-            st.markdown(f"## Article for Generated Image {i+1}:")
-            st.write(article_response)
+            try:
+                article_response = get_gemini_response(modified_prompt)
+                st.markdown(f"## Article for Generated Image {i+1}:")
+                st.write(article_response)
+            except Exception as e:
+                st.error(f"Error generating article for image {i+1}: {e}")
     elif yt in input_prompt:
-        response = yt_summarize(input_prompt)
-        st.markdown("### Key Points from the Video:")
-        st.write(response)
+        try:
+            response = yt_summarize(input_prompt)
+            st.markdown("### Key Points from the Video:")
+            st.write(response)
+        except Exception as e:
+            st.error(f"Error summarizing YouTube video: {e}")
     else:
-        if image:
-            st.write("Generating text...")
-            response = get_gemini_response_image(input_prompt, image)
-        else:
-            st.write("Generating text...")
-            response = get_gemini_response(input_prompt)
-    st.write(response)
+        try:
+            if image:
+                st.write("Generating text...")
+                response = get_gemini_response_image(input_prompt, image)
+            else:
+                st.write("Generating text...")
+                response = get_gemini_response(input_prompt)
+            st.write(response)
+        except Exception as e:
+            st.error(f"Error generating text: {e}")
 
 # Add refresh button
 if st.button("Refresh"):
