@@ -119,7 +119,7 @@ submit = st.button("Submit")
 
 response = ''
 yt = "https://www.youtube.com/watch?v=example"
-keywords = ["image", "create image", "generate image", "create picture", "generate picture"]
+keywords = ["create", "generate"]
 contains_keyword = any(keyword in input_prompt.lower() for keyword in keywords)
 
 if submit:
